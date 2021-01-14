@@ -99,15 +99,9 @@
   color: white !important;
 }
 
-.menu-type-container {
-  margin-left: 30px;
-}
-
-.menu-type-container .ant-select-selection,
-.menu-type-container .ant-select-dropdown-menu-item,
-.menu-type-container .ant-select-arrow {
-  border: none !important;
-  color: black !important;
+.contact-form-container .image-section-container .delete-button div {
+  margin-top: -5px;
+  font-size: 16px;
 }
 
 .file-drop-content {
@@ -134,6 +128,10 @@
 
 .desktop-upload-button {
   display: block !important;
+}
+
+.file-drop-content {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {

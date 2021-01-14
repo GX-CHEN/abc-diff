@@ -2,6 +2,7 @@ import { Row, Col, Card } from "antd";
 import "antd/dist/antd.css";
 import "./App.css";
 import TopBar from "./component/TopBar";
+import Uploader from "./component/Uploader";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             className="card-container"
           >
             点击或拖拽上传文件
+            <Uploader />
           </Card>
         </Col>
         <Col xs={24} md={12}>
@@ -24,6 +26,7 @@ function App() {
             className="card-container"
           >
             点击或拖拽上传文件
+            <Uploader />
           </Card>
         </Col>
       </Row>
