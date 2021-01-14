@@ -1,0 +1,147 @@
+.contact-form-container .image-section-container {
+  color: black !important;
+}
+
+.contact-form-container .image-section-container .ant-btn {
+  color: black !important;
+}
+
+.contact-form-container .image-section-container .ant-btn:hover,
+.contact-form-container .image-section-container .ant-btn:active,
+.contact-form-container .image-section-container .ant-btn:focus,
+.contact-form-container .image-section-container .ant-btn:visited {
+  border-color: black !important;
+}
+
+.label-section-header {
+  padding: 0 20px !important;
+}
+
+.image-section-container {
+  margin-bottom: 36px;
+}
+
+.field-label {
+  text-align: left;
+  margin: 16px 0 8px 0;
+}
+
+.submit-button {
+  margin-top: 10px;
+}
+
+.submit-button .ant-btn,
+.submit-button .ant-btn:hover {
+  color: white;
+  background: black;
+  border: none;
+}
+
+.preview-container {
+  width: 100%;
+  max-height: 80vh;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.hidden {
+  display: none;
+}
+
+.go-left {
+  position: fixed;
+  left: 6px;
+  top: 42%;
+}
+
+.go-right {
+  position: fixed;
+  right: 6px;
+  top: 42%;
+}
+
+@media only screen and (min-width: 768px) {
+  .select-dropdown {
+    padding-right: 20% !important;
+  }
+  .preview-container {
+    width: 76%;
+  }
+}
+
+.files-container {
+  margin: 15px 0;
+}
+
+.file-item-container {
+  position: relative;
+}
+
+.file-item {
+  margin: 10px 0;
+  width: 240px;
+  border: 1px solid black !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-form-container .image-section-container .delete-button {
+  position: absolute;
+  top: 0;
+  left: 225px;
+  height: 24px !important;
+  width: 24px !important;
+  min-width: 24px !important;
+  background: black !important;
+  color: white !important;
+}
+
+.menu-type-container {
+  margin-left: 30px;
+}
+
+.menu-type-container .ant-select-selection,
+.menu-type-container .ant-select-dropdown-menu-item,
+.menu-type-container .ant-select-arrow {
+  border: none !important;
+  color: black !important;
+}
+
+.file-drop-content {
+  height: 100%;
+}
+
+.file-drop-content {
+  text-align: center;
+}
+
+.file-upload-browse {
+  text-decoration: underline;
+}
+
+.upload-drag-icon {
+  font-size: 36px;
+  text-align: center;
+  padding-top: 80px;
+}
+
+.mobile-upload-button {
+  display: none !important;
+}
+
+.desktop-upload-button {
+  display: block !important;
+}
+
+@media screen and (max-width: 768px) {
+  .mobile-upload-button {
+    display: block !important;
+  }
+
+  .desktop-upload-button {
+    display: none !important;
+  }
+}

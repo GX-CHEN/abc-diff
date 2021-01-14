@@ -1,0 +1,40 @@
+.page-header-wrapper {
+  background-color: #fff;
+  padding: 6px;
+}
+
+.page-header-text {
+  font-size: 24px;
+}
+
+.page-header-sub-text {
+  font-size: 16px;
+}
+
+.instruction-container {
+  padding: 42px;
+}
+
+.instruction-text {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.instruction-title {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+@media only screen and (max-width: 767px) {
+  .page-header-sub-text {
+    display: none;
+  }
+  .instruction-text {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .instruction-container {
+    padding: 0 6px;
+  }
+}
