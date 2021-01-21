@@ -1,19 +1,8 @@
 import React from "react";
-import {
-  Spin,
-  Form,
-  Row,
-  Col,
-  Button,
-  message,
-  Divider,
-  Select,
-  Modal,
-} from "antd";
+import { Spin, Form, Row, Col, Button, message, Divider, Modal } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import XLSX from "xlsx";
 import "./Uploader.css";
-
-const { Option } = Select;
 
 class Uploader extends React.Component {
   state = {
@@ -24,7 +13,7 @@ class Uploader extends React.Component {
   };
 
   handleUpload = (selectorFiles) => {
-    console.log(selectorFiles[0].type);
+    console.log(selectorFiles[0]);
     const reader = new FileReader();
     if (selectorFiles[0]) {
       if (selectorFiles[0].size > 10000000) {
@@ -37,9 +26,16 @@ class Uploader extends React.Component {
       ) {
         message.error("文件必须是Excel的格式");
       } else {
-        reader.readAsDataURL(selectorFiles[0]);
-        reader.onloadend = () => {
+        reader.readAsBinaryString(selectorFiles[0]);
+        reader.onload = (event) => {
           message.success(`${selectorFiles[0].name} 文件成功被加入`);
+          const data = event.target.result;
+          const workbook = XLSX.read(data, { type: "binary" });
+          workbook.SheetNames.forEach((sheet) => {
+            let jsonObject = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+            console.log({ jsonObject });
+          });
+
           this.setState({
             file: selectorFiles[0],
             fileArr: [...this.state.fileArr, selectorFiles[0]],
