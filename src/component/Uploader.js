@@ -9,15 +9,14 @@ class Uploader extends React.Component {
     loading: false,
     currentFile: null,
     modalVisible: false,
-    fileArr: [],
+    fileNameArr: [],
   };
 
   handleUpload = (selectorFiles) => {
-    console.log(selectorFiles[0]);
     const reader = new FileReader();
     if (selectorFiles[0]) {
       if (selectorFiles[0].size > 10000000) {
-        message.error("图片最大不能超过10MB");
+        message.error("文件最大不能超过10MB");
       } else if (
         ![
           "application/vnd.ms-excel",
@@ -31,14 +30,18 @@ class Uploader extends React.Component {
           message.success(`${selectorFiles[0].name} 文件成功被加入`);
           const data = event.target.result;
           const workbook = XLSX.read(data, { type: "binary" });
+          const sheetData = [];
           workbook.SheetNames.forEach((sheet) => {
-            let jsonObject = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
-            console.log({ jsonObject });
+            let jsonObject = XLSX.utils.sheet_to_json(workbook.Sheets[sheet], {
+              header: this.props.header,
+            });
+            sheetData.push(...jsonObject);
           });
+          this.props.addItem(sheetData);
 
           this.setState({
             file: selectorFiles[0],
-            fileArr: [...this.state.fileArr, selectorFiles[0]],
+            fileNameArr: [...this.state.fileNameArr, selectorFiles[0].name],
           });
         };
       }
@@ -48,21 +51,21 @@ class Uploader extends React.Component {
   inputElement = React.createRef();
 
   deleteFile = (index) => {
+    const { fileNameArr } = this.state;
+    fileNameArr.splice(index, 1);
     this.setState(
       {
-        fileArr: [
-          ...this.state.fileArr.slice(0, index),
-          ...this.state.fileArr.slice(index + 1),
-        ],
+        fileNameArr,
       },
       () => {
         message.warn("文件成功被删除");
       }
     );
+    this.props.removeItem(index);
   };
 
   render() {
-    const { fileArr, loading } = this.state;
+    const { fileNameArr, loading } = this.state;
 
     return (
       <div className="contact-form-container">
@@ -120,14 +123,14 @@ class Uploader extends React.Component {
                 </Modal>
 
                 <div className="files-container">
-                  {fileArr.map((file, index) => (
+                  {fileNameArr.map((fileName, index) => (
                     <div className="file-item-container" key={index}>
                       <Button
                         type="default"
                         className="file-item"
                         key={`${index}-item`}
                       >
-                        {file.name}
+                        {fileName}
                       </Button>
                       <Button
                         shape="circle"

@@ -18,7 +18,7 @@
 }
 
 .image-section-container {
-  margin-bottom: 36px;
+  margin-bottom: 18px;
 }
 
 .field-label {
@@ -80,8 +80,8 @@
 }
 
 .file-item {
-  margin: 10px 0;
-  width: 240px;
+  margin: 8px 0;
+  width: 280px;
   border: 1px solid black !important;
   white-space: nowrap;
   overflow: hidden;
@@ -91,7 +91,7 @@
 .contact-form-container .image-section-container .delete-button {
   position: absolute;
   top: 0;
-  left: 225px;
+  left: 265px;
   height: 24px !important;
   width: 24px !important;
   min-width: 24px !important;
