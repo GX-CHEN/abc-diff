@@ -43,7 +43,6 @@ function App() {
 
   const addTypeBItem = (item) => {
     setTypeBArray([...typeBArray, item]);
-    console.log(typeBArray);
   };
 
   const addTypeCItem = (item) => {
@@ -63,7 +62,17 @@ function App() {
   };
 
   const doFilter = () => {
-    console.log({ typeBArray, typeCArray });
+    const allTypeBItems = [];
+    typeBArray.forEach((data) => {
+      allTypeBItems.push(...data);
+    });
+    const allTypeCItems = typeCArray[0];
+    const allTypeBIds = allTypeBItems.map((item) => String(item.ID));
+    const duplicateC = allTypeCItems.filter((cItem) =>
+      allTypeBIds.includes(String(cItem.ID))
+    );
+
+    console.log(duplicateC);
   };
 
   return (
