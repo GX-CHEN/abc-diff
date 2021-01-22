@@ -1,114 +1,22 @@
-import { Row, Col, Card, Button, Table } from "antd";
 import React, { useState } from "react";
+import { Row, Col, Card, Button, Table } from "antd";
+import XLSX from "xlsx";
 import "antd/dist/antd.css";
 import "./App.css";
 import TopBar from "./component/TopBar";
 import Uploader from "./component/Uploader";
+import {
+  typeBHeader,
+  typeCHeader,
+  typeCHeaderValue,
+  columns,
+} from "./constants";
 
 function App() {
-  const typeBHeader = [
-    "序号",
-    "时间",
-    "ID",
-    "姓名",
-    "性别",
-    "年龄",
-    "单位",
-    "联系方式",
-    "发现科室",
-    "阳性体征",
-    "家族史/既往史",
-    "通知时间",
-    "通知人员",
-  ];
-
-  const typeCHeader = [
-    "序号",
-    "ID",
-    "姓名",
-    "性别",
-    "年龄",
-    "身份证号",
-    "联系方式",
-    "单位",
-    "部门",
-    "复诊主题",
-    "复诊描述",
-    "通知时间",
-    "通知人员",
-  ];
-
-  const columns = [
-    {
-      title: "序号",
-      dataIndex: "序号",
-      key: "序号",
-    },
-    {
-      title: "ID",
-      dataIndex: "ID",
-      key: "ID",
-    },
-    {
-      title: "姓名",
-      dataIndex: "姓名",
-      key: "姓名",
-    },
-    {
-      title: "性别",
-      dataIndex: "性别",
-      key: "性别",
-    },
-    {
-      title: "年龄",
-      dataIndex: "年龄",
-      key: "年龄",
-    },
-    {
-      title: "身份证号",
-      dataIndex: "身份证号",
-      key: "身份证号",
-    },
-    {
-      title: "联系方式",
-      dataIndex: "联系方式",
-      key: "联系方式",
-    },
-    {
-      title: "单位",
-      dataIndex: "单位",
-      key: "单位",
-    },
-    {
-      title: "部门",
-      dataIndex: "部门",
-      key: "部门",
-    },
-    {
-      title: "复诊主题",
-      dataIndex: "复诊主题",
-      key: "复诊主题",
-    },
-    {
-      title: "复诊描述",
-      dataIndex: "复诊描述",
-      key: "复诊描述",
-    },
-    {
-      title: "通知时间",
-      dataIndex: "通知时间",
-      key: "通知时间",
-    },
-    {
-      title: "通知人员",
-      dataIndex: "通知人员",
-      key: "通知人员",
-    },
-  ];
-
   const [typeBArray, setTypeBArray] = useState([]);
   const [typeCArray, setTypeCArray] = useState([]);
   const [duplicate, setDuplicate] = useState([]);
+  const [nonDuplicate, setNonDuplicate] = useState([]);
 
   const addTypeBItem = (item) => {
     setTypeBArray([...typeBArray, item]);
@@ -142,7 +50,35 @@ function App() {
         cItem.ID && cItem.ID !== "ID" && allTypeBIds.includes(String(cItem.ID))
     );
 
+    const nonDuplicateC = (allTypeCItems || []).filter(
+      (cItem) =>
+        cItem.ID && cItem.ID !== "ID" && !allTypeBIds.includes(String(cItem.ID))
+    );
+
     setDuplicate(duplicateC);
+    setNonDuplicate(nonDuplicateC);
+  };
+
+  const exportExcel = () => {
+    const data = [
+      { ID: "重复项" },
+      typeCHeaderValue,
+      ...duplicate,
+      { ID: "" },
+      { ID: "非重复项" },
+      typeCHeaderValue,
+      ...nonDuplicate,
+    ];
+
+    /* make the worksheet */
+    const ws = XLSX.utils.json_to_sheet(data);
+
+    /* add to workbook */
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "record");
+
+    /* generate an XLSX file */
+    XLSX.writeFile(wb, "结果.xlsx");
   };
 
   return (
@@ -198,6 +134,18 @@ function App() {
             >
               <Table dataSource={duplicate} columns={columns} />;
             </Card>
+          </Col>
+        )}
+        {duplicate.length && (
+          <Col xs={24}>
+            <Button
+              type="primary"
+              className="trigger-button"
+              size="large"
+              onClick={exportExcel}
+            >
+              导入Excel结果
+            </Button>
           </Col>
         )}
       </Row>
