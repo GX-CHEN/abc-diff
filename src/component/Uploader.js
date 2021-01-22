@@ -106,7 +106,12 @@ class Uploader extends React.Component {
                       }}
                       className="file-drop-content"
                     >
-                      <p className="upload-drag-icon">
+                      <p
+                        className="upload-drag-icon"
+                        onClick={() => {
+                          this.inputElement.click();
+                        }}
+                      >
                         <UploadOutlined />
                       </p>
                       <p>

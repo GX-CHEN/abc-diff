@@ -1,4 +1,4 @@
-import { Row, Col, Card, Button } from "antd";
+import { Row, Col, Card, Button, Table } from "antd";
 import React, { useState } from "react";
 import "antd/dist/antd.css";
 import "./App.css";
@@ -38,8 +38,77 @@ function App() {
     "通知人员",
   ];
 
+  const columns = [
+    {
+      title: "序号",
+      dataIndex: "序号",
+      key: "序号",
+    },
+    {
+      title: "ID",
+      dataIndex: "ID",
+      key: "ID",
+    },
+    {
+      title: "姓名",
+      dataIndex: "姓名",
+      key: "姓名",
+    },
+    {
+      title: "性别",
+      dataIndex: "性别",
+      key: "性别",
+    },
+    {
+      title: "年龄",
+      dataIndex: "年龄",
+      key: "年龄",
+    },
+    {
+      title: "身份证号",
+      dataIndex: "身份证号",
+      key: "身份证号",
+    },
+    {
+      title: "联系方式",
+      dataIndex: "联系方式",
+      key: "联系方式",
+    },
+    {
+      title: "单位",
+      dataIndex: "单位",
+      key: "单位",
+    },
+    {
+      title: "部门",
+      dataIndex: "部门",
+      key: "部门",
+    },
+    {
+      title: "复诊主题",
+      dataIndex: "复诊主题",
+      key: "复诊主题",
+    },
+    {
+      title: "复诊描述",
+      dataIndex: "复诊描述",
+      key: "复诊描述",
+    },
+    {
+      title: "通知时间",
+      dataIndex: "通知时间",
+      key: "通知时间",
+    },
+    {
+      title: "通知人员",
+      dataIndex: "通知人员",
+      key: "通知人员",
+    },
+  ];
+
   const [typeBArray, setTypeBArray] = useState([]);
   const [typeCArray, setTypeCArray] = useState([]);
+  const [duplicate, setDuplicate] = useState([]);
 
   const addTypeBItem = (item) => {
     setTypeBArray([...typeBArray, item]);
@@ -68,11 +137,12 @@ function App() {
     });
     const allTypeCItems = typeCArray[0];
     const allTypeBIds = allTypeBItems.map((item) => String(item.ID));
-    const duplicateC = allTypeCItems.filter((cItem) =>
-      allTypeBIds.includes(String(cItem.ID))
+    const duplicateC = (allTypeCItems || []).filter(
+      (cItem) =>
+        cItem.ID && cItem.ID !== "ID" && allTypeBIds.includes(String(cItem.ID))
     );
 
-    console.log(duplicateC);
+    setDuplicate(duplicateC);
   };
 
   return (
@@ -119,6 +189,17 @@ function App() {
             进行筛查
           </Button>
         </Col>
+        {duplicate.length && (
+          <Col xs={24}>
+            <Card
+              title={<div className="bold-card-title">重复项列表</div>}
+              bordered={false}
+              className="card-container"
+            >
+              <Table dataSource={duplicate} columns={columns} />;
+            </Card>
+          </Col>
+        )}
       </Row>
     </div>
   );
