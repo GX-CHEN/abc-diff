@@ -1,5 +1,5 @@
-import { Row, Col, Card } from "antd";
-import { useState } from "react";
+import { Row, Col, Card, Button } from "antd";
+import React, { useState } from "react";
 import "antd/dist/antd.css";
 import "./App.css";
 import TopBar from "./component/TopBar";
@@ -51,17 +51,19 @@ function App() {
   };
 
   const removeTypeBItem = (index) => {
-    console.log(typeBArray);
     const newTypeBArray = [...typeBArray];
     typeBArray.splice(index, 1);
     setTypeBArray(newTypeBArray);
-    console.log({ index, typeBArray });
   };
 
   const removeTypeCItem = (index) => {
     const newTypeCArray = [...typeCArray];
     typeCArray.splice(index, 1);
     setTypeCArray(newTypeCArray);
+  };
+
+  const doFilter = () => {
+    console.log({ typeBArray, typeCArray });
   };
 
   return (
@@ -76,6 +78,7 @@ function App() {
           >
             点击或拖拽上传文件
             <Uploader
+              maxItem={5}
               addItem={addTypeBItem}
               removeItem={removeTypeBItem}
               header={typeBHeader}
@@ -90,11 +93,22 @@ function App() {
           >
             点击或拖拽上传文件
             <Uploader
+              maxItem={1}
               addItem={addTypeCItem}
               removeItem={removeTypeCItem}
               header={typeCHeader}
             />
           </Card>
+        </Col>
+        <Col xs={24}>
+          <Button
+            type="primary"
+            className="trigger-button"
+            size="large"
+            onClick={doFilter}
+          >
+            进行筛查
+          </Button>
         </Col>
       </Row>
     </div>

@@ -15,8 +15,8 @@ class Uploader extends React.Component {
   handleUpload = (selectorFiles) => {
     const reader = new FileReader();
     if (selectorFiles[0]) {
-      if (selectorFiles[0].size > 10000000) {
-        message.error("文件最大不能超过10MB");
+      if (selectorFiles[0].size > 5000000) {
+        message.error("文件最大不能超过5MB");
       } else if (
         ![
           "application/vnd.ms-excel",
@@ -24,6 +24,8 @@ class Uploader extends React.Component {
         ].includes(selectorFiles[0].type)
       ) {
         message.error("文件必须是Excel的格式");
+      } else if (this.state.fileNameArr.length >= this.props.maxItem) {
+        message.error(`最大上传文件数限制为 ${this.props.maxItem}`);
       } else {
         reader.readAsBinaryString(selectorFiles[0]);
         reader.onload = (event) => {
