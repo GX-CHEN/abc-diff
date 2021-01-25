@@ -21,7 +21,8 @@ class Uploader extends React.Component {
         ![
           "application/vnd.ms-excel",
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        ].includes(selectorFiles[0].type)
+        ].includes(selectorFiles[0].type) &&
+        !selectorFiles[0].name.includes(".xls")
       ) {
         message.error("文件必须是Excel的格式");
       } else if (this.state.fileNameArr.length >= this.props.maxItem) {

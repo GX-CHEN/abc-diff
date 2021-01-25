@@ -125,7 +125,7 @@ function App() {
             进行筛查
           </Button>
         </Col>
-        {duplicate.length && (
+        {duplicate.length > 0 && (
           <Col xs={24}>
             <Card
               title={<div className="bold-card-title">重复项列表</div>}
@@ -136,7 +136,7 @@ function App() {
             </Card>
           </Col>
         )}
-        {duplicate.length && (
+        {duplicate.length > 0 && (
           <Col xs={24}>
             <Button
               type="primary"
